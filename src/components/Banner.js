@@ -20,7 +20,6 @@ function Banner() {
       params: { append_to_response: "videos" },
     })
 
-    console.log(movieDetail)
     setMovie(movieDetail);
   }
 
