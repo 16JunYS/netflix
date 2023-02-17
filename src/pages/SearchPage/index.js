@@ -2,27 +2,30 @@ import axios from "../../api/axios";
 import { React, useState, useEffect} from 'react';
 import { useLocation } from "react-router-dom";
 import "./SearchPage.css";
+import { useDebounce } from "../../hooks/useDebounce";
 
 export default function SearchPage() {
     const [searchResults, setSearchResults] = useState([]);
     const useQuery = () => {
         return new URLSearchParams(useLocation().search);
     };
+
     let query = useQuery();
-    const searchTerm = query.get("q");
+    // const searchTerm = query.get("q");
+    const debounceSearchTerm = useDebounce(query.get("q"), 500);
 
     useEffect(() => {
-        if (searchTerm) {
-            fetchSearchMovie(searchTerm);
+        if (debounceSearchTerm) {
+            fetchSearchMovie(debounceSearchTerm);
         }
-    }, [searchTerm]);
+    }, [debounceSearchTerm]);
 
     const fetchSearchMovie = async (searchTerm) => {
-        try {
+        try { 
             const request = await axios.get(
                 `/search/multi?include_adult=false&query=${searchTerm}`
             );
-            setSearchResults(request.data.results);
+            setSearchResults(request.data.results); 
         } catch (error) {
             console.log("error", error);
         }
@@ -49,7 +52,7 @@ export default function SearchPage() {
         <section className="no-results">
             <div className="no-results__text">
               <p>
-                Your search for "{searchTerm}" did not have any match
+                Your search for "{debounceSearchTerm}" did not have any match
                 </p>
             </div>
           </section>
