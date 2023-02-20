@@ -1,0 +1,15 @@
+.detail__content {
+    padding: 40px;
+    color: white;
+}
+
+.detail__title {
+    padding: 0;
+    font-size: 40px;
+    margin: 16px 0;
+}
+
+.detail__overview {
+    font-size: 20px;
+    line-height: 1.5;
+}
