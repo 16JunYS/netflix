@@ -6,7 +6,7 @@ import {BrowserRouter} from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 
 ReactDom.render(
-  <BrowserRouter>
+  <BrowserRouter basename="netflix">
     <App />
   </BrowserRouter>,
   document.getElementById('root')
